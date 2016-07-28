@@ -1,0 +1,38 @@
+#! /bin/bash
+
+echo 'This script renames pesky plugins in all server folders.  Type q to quit!'
+
+while :
+
+do
+
+    echo 'old name:'
+    read oldname
+
+        if [ $oldname == "q" ] 
+            then
+                break
+        fi
+
+    echo 'new name:'
+    read newname
+
+        if [ $newname == "q" ]
+            then
+              break
+        fi
+
+    for serverfolder in ../servers/*; do
+
+        if [ -e ../servers/$serverfolder/plugins/$oldname ]
+
+            then
+
+                mv ../servers/$serverfolder/plugins/$oldname ../servers/$serverfolder/plugins/$newname
+                echo "$serverfolder: renamed $oldname to $newname."
+        fi
+        echo " "
+
+    done
+
+done

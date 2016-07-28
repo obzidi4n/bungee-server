@@ -1,0 +1,30 @@
+#! /bin/bash
+
+echo 'This script NUKES pesky plugins in all server folders. BE CAREFUL. Type q to quit!'
+
+while :
+
+do
+
+    echo 'plugin:'
+    read nukename
+
+        if [ $nukename == "q" ] 
+            then
+                break
+        fi
+
+
+    for serverfolder in ../servers/*; do
+
+        if [ -e ../servers/$serverfolder/plugins/$nukename ]
+
+            then
+
+                rm ../servers/$serverfolder/plugins/$nukename
+                echo "$serverfolder: removed $nukename"
+        fi
+
+    done
+
+done

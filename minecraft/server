@@ -37,7 +37,7 @@ if [ $1 = 'backup' ]; then
 
 	# set backup and cloud locations
 	backup_loc='backups/servers'
-	cloud_loc='gdrive:servers/development/minecraft/'
+	cloud_loc='delphi:delphicraft/backups/'
 
 	# backup bungee
 	echo 'Backing up: bungee'
@@ -379,7 +379,7 @@ if [ $1 = 'update' ]; then
 		# todo: check if directory exists, if not, create and then CD 
 		cd servers/bungee
 		rm BungeeCord.jar
-		wget --inet4-only http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
+		wget http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
 		echo "Done!"
 	fi
 
@@ -389,7 +389,7 @@ if [ $1 = 'update' ]; then
 		# empty old builds
 		rm -rf common-files/buildtools/*
 		cd common-files/buildtools
-		wget --inet4-only "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
+		wget "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
 		git config --global --unset core.autocrlf
 
 		# run git .. this takes awhile, run inside tmux
@@ -426,14 +426,14 @@ if [ $1 = 'update' ]; then
 		# retrieve filenames from servers
 		i=0
 		for file in servers/*/plugins/*.jar
-		do
+		do	
 			plugins[$i]=$(basename "$file");
 			((i++));
 		done
 
 		# dedupe array
 		readarray -t allPlugins < <(printf '%s\n' "${plugins[@]}" | sort -u);
-
+		
 		# update file
 		rm config/pluginlist
 		for each in "${allPlugins[@]}"

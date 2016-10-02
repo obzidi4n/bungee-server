@@ -376,7 +376,7 @@ if [ $1 = 'update' ]; then
 
 	if [ $2 = 'bungee' ]; then
 
-		# todo: check if directory exists, if not, create and then CD 
+		# todo: check if directory exists, if not, create and then CD
 		cd servers/bungee
 		rm BungeeCord.jar
 		wget http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
@@ -385,7 +385,7 @@ if [ $1 = 'update' ]; then
 
 	if [ $2 = 'spigot' ]; then
 
-		# todo: check if directory exists, if not, create and then CD 
+		# todo: check if directory exists, if not, create and then CD
 		# empty old builds
 		rm -rf common-files/buildtools/*
 		cd common-files/buildtools

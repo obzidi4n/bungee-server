@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 if [ $1 = 'help' ]; then
@@ -7,8 +8,6 @@ if [ $1 = 'help' ]; then
 		DelphiCraft's Nifty Server Scripts
 
 		SERVER CONTROL
-		Available servers: bungee, creative, delphi, factions, games, newdelphi
-
 		./server help - this menu
 		./server start <servername> - start a server
 		./server stop <servername> - graceful shutdown
@@ -126,7 +125,8 @@ if [ $1 = 'console' ]; then
 		exit
 
 	else
-		echo 'Sorry, no console session to attach.'
+                tmux new-session -d -s delphicraft
+                tmux attach -t delphicraft
 		exit
 	fi
 fi
@@ -387,7 +387,8 @@ if [ $1 = 'update' ]; then
 
 		# todo: check if directory exists, if not, create and then CD
 		# empty old builds
-		rm -rf common-files/buildtools/*
+		chown -R common-files/buildtools
+                rm -rf common-files/buildtools/*
 		cd common-files/buildtools
 		wget "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
 		git config --global --unset core.autocrlf

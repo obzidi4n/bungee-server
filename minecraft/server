@@ -5,7 +5,7 @@ if [ $1 = 'help' ]; then
 
 		echo "
 		*******
-		DelphiCraft's Nifty Server Scripts
+		Obzidi4n's Nifty Server Scripts
 
 		SERVER CONTROL
 		./server help - this menu
@@ -20,12 +20,11 @@ if [ $1 = 'help' ]; then
 
 		UPDATES
 		./server update bungee - get the latest bungee build
-	        ./server update spigot - download latest buildtools, run git and write to servers
-	        ./server update spigotjars - copy updated spigot.jar to server folders
+        ./server update spigot - download latest buildtools, run git and write to servers
+        ./server update spigotjars - copy updated spigot.jar to server folders
 		./server update plugins - get latest plugin builds & write to servers
 		./server update pluginlist - get a fresh list of plugins
 
-		View active sessions and access console with: tmux attach -t delphicraft
 		*******
 		"
 fi
@@ -387,15 +386,24 @@ if [ $1 = 'update' ]; then
 
 		# todo: check if directory exists, if not, create and then CD
 		# empty old builds
-		chown -R common-files/buildtools
-                rm -rf common-files/buildtools/*
+        chmod -R 777 common-files/buildtools/*
+        rm -rf common-files/buildtools/*
 		cd common-files/buildtools
 		wget "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
 		git config --global --unset core.autocrlf
 
 		# run git .. this takes awhile, run inside tmux
-		tmux new -d -s buildtools 'java -jar -Xmx2G -Xms2G BuildTools.jar'
-		echo  "Running buildtools.jar.. run 'tmux attach -t buildtools' to monitor"
+		tmux new -d -s spigot 'java -jar -Xmx2G -Xms2G BuildTools.jar'
+
+		echo  "Running buildtools in a tmux session called 'spigot'. Join session? (y/n)"
+        read joinsession
+
+                if [ $joinsession = "y" ]; then
+                    tmux attach -t spigot
+                else
+                     exit
+                fi
+
 	fi
 
 	if [ $2 = 'spigotjars' ]; then
@@ -427,14 +435,14 @@ if [ $1 = 'update' ]; then
 		# retrieve filenames from servers
 		i=0
 		for file in servers/*/plugins/*.jar
-		do	
+		do
 			plugins[$i]=$(basename "$file");
 			((i++));
 		done
 
 		# dedupe array
 		readarray -t allPlugins < <(printf '%s\n' "${plugins[@]}" | sort -u);
-		
+
 		# update file
 		rm config/pluginlist
 		for each in "${allPlugins[@]}"

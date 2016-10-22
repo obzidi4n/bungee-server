@@ -2,5 +2,5 @@ plugin,type,url,notes
 bungeeadmintools,spigot,https://www.spigotmc.org/resources/bungee-admin-tools-basics-edition.444,
 bungeemail,jenkins,https://ci.codecrafter47.de/job/BungeeMail,
 essentialsx,jenkins,https://ci.drtshock.net/job/essentialsx,
-worldedit,enginehub,https://builds.enginehub.org/job/worldedit/last-successful?branch=master,
-worldguard,enginehub,https://builds.enginehub.org/job/worldguard/last-successful?branch=master,
+worldedit,enginehub,http://builds.enginehub.org/job/worldedit/last-successful?branch=master,
+worldguard,enginehub,http://builds.enginehub.org/job/worldguard/last-successful?branch=master,

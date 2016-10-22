@@ -50,6 +50,8 @@ for i in range(1, pluginNum):
             shutil.copyfileobj(response.raw, out_file)
         del response
 
+	print('Saved \n\n')
+
     # check if jenkins
     elif pluginData[i][1] == 'jenkins':
 
@@ -75,6 +77,8 @@ for i in range(1, pluginNum):
             with open('common-files/plugins/%s' % fileName, 'wb') as out_file:
                 shutil.copyfileobj(response.raw, out_file)
             del response
+
+	    print('Saved \n\n')
 
     # check if enginehub
     elif pluginData[i][1] == 'enginehub':
@@ -102,6 +106,8 @@ for i in range(1, pluginNum):
             shutil.copyfileobj(response.raw, out_file)
         del response
 
+        print('Saved \n\n')
+
     # check if static
     elif pluginData[i][1] == 'static':
 
@@ -118,6 +124,8 @@ for i in range(1, pluginNum):
         with open('common-files/plugins/%s' % fileName, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
+
+        print('Saved \n\n')
 
     # else error
     else:

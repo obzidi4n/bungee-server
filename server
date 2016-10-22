@@ -20,8 +20,8 @@ if [ $1 = 'help' ]; then
 
 		UPDATES
 		./server update bungee - get the latest bungee build
-        ./server update spigot - download latest buildtools, run git and write to servers
-        ./server update spigotjars - copy updated spigot.jar to server folders
+	        ./server update spigot - download latest buildtools, run git and write to server.
+		./server update spigotjars - copy updated spigot.jar to server folders
 		./server update plugins - get latest plugin builds & write to servers
 		./server update pluginlist - get a fresh list of plugins
 
@@ -264,6 +264,7 @@ if [ $1 = 'update' ]; then
 
 	if [ $2 = 'plugins' ]; then
 
+                echo
 		echo 'Cleaning up plugins directory'
 		rm common-files/plugins/*
 
@@ -274,6 +275,7 @@ if [ $1 = 'update' ]; then
 			for file in common-files/plugins/*.zip
 				do
 
+					echo
 					echo 'Unzipping ' $file
 					unzip -jo $file -d ${file%.*}
 
@@ -282,6 +284,7 @@ if [ $1 = 'update' ]; then
 						do
 
 							jarfile_base=${jarfile##*/}
+							echo
 							echo 'Moving ' $jarfile_base
 							cp $jarfile common-files/plugins/$jarfile_base
 
@@ -290,10 +293,12 @@ if [ $1 = 'update' ]; then
 				done
 
 			# cleanup: remove sub-directories
+			echo
 			echo 'Removing subdirectories'
 			rm -rf common-files/plugins/*/
 
 			# cleanup: remove zips
+			echo
 			echo 'Removing zips'
 			for file in common-files/plugins/*.zip
 				do
@@ -302,6 +307,7 @@ if [ $1 = 'update' ]; then
 
 				done
 
+			echo
 			echo 'Plugin jars downloaded'
 
 
@@ -345,6 +351,7 @@ if [ $1 = 'update' ]; then
 
 			done
 
+			echo
 			echo 'Filenames cleaned up'
 
 
@@ -368,7 +375,9 @@ if [ $1 = 'update' ]; then
 
 		done < config/serverlist
 
+		echo
 		echo 'Plugins copied to servers.'
+		echo
 		echo 'Done!'
 	fi
 

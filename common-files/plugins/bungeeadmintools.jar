@@ -27,14 +27,14 @@
     b(function(){
       var a = document.getElementById('cf-content');a.style.display = 'block';
       setTimeout(function(){
-        var s,t,o,p,b,r,e,a,k,i,n,g,f, bosuRAb={"iJwGKjDhbKK":!+[]+!![]+!![]+!![]+!![]+!![]+!![]};
+        var s,t,o,p,b,r,e,a,k,i,n,g,f, ITSMqWJ={"EhnLZrpQk":+((+!![]+[])+(!+[]+!![]+!![]+!![]+!![]+!![]))};
         t = document.createElement('div');
         t.innerHTML="<a href='/'>x</a>";
         t = t.firstChild.href;r = t.match(/https?:\/\//)[0];
         t = t.substr(r.length); t = t.substr(0,t.length-1);
         a = document.getElementById('jschl-answer');
         f = document.getElementById('challenge-form');
-        ;bosuRAb.iJwGKjDhbKK+=+((!+[]+!![]+[])+(!+[]+!![]));bosuRAb.iJwGKjDhbKK*=+((!+[]+!![]+!![]+[])+(!+[]+!![]+!![]+!![]));bosuRAb.iJwGKjDhbKK-=+((!+[]+!![]+[])+(+!![]));bosuRAb.iJwGKjDhbKK+=!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![];bosuRAb.iJwGKjDhbKK+=+((+!![]+[])+(!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]));a.value = parseInt(bosuRAb.iJwGKjDhbKK, 10) + t.length; '; 121'
+        ;ITSMqWJ.EhnLZrpQk*=+((!+[]+!![]+!![]+!![]+[])+(!+[]+!![]+!![]+!![]));ITSMqWJ.EhnLZrpQk-=!+[]+!![]+!![];a.value = parseInt(ITSMqWJ.EhnLZrpQk, 10) + t.length; '; 121'
         f.submit();
       }, 4000);
     }, false);
@@ -61,8 +61,8 @@
     <p data-translate="allow_5_secs">Please allow up to 5 seconds&hellip;</p>
   </div>
   <form id="challenge-form" action="/cdn-cgi/l/chk_jschl" method="get">
-    <input type="hidden" name="jschl_vc" value="dae7a46208256e93c81446a20b051e79"/>
-    <input type="hidden" name="pass" value="1477156206.831-nAEQk/mgM3"/>
+    <input type="hidden" name="jschl_vc" value="53af4964227bcce258edf798c1809a53"/>
+    <input type="hidden" name="pass" value="1477163654.799-2BYZ/F+D2U"/>
     <input type="hidden" id="jschl-answer" name="jschl_answer"/>
   </form>
 </div>
@@ -71,7 +71,7 @@
           <div class="attribution">
             <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=iuam" target="_blank" style="font-size: 12px;">DDoS protection by CloudFlare</a>
             <br>
-            Ray ID: 2f5e8f7bbc9955f4
+            Ray ID: 2f5f45517fd52519
           </div>
       </td>
     </tr>

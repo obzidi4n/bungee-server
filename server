@@ -356,6 +356,11 @@ if [ $1 = 'update' ]; then
 
 
 		## check plugins against common-files directory, update if needed.
+		echo
+		echo 'Add any premium or custom plugins manually to the /common-files/plugins directory, and press any key to continue..'
+
+		read pluginContinue
+
 		while read server megs
 		do
 

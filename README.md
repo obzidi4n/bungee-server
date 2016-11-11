@@ -9,9 +9,15 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
 - Updating Bungeecord
 - And more ..
 
-Dependencies:
+# Dependencies:
 
-Python 3.x
+- Python 3.x
 
-Python libraries (use pip to install)
+- Python libraries (use pip to install)
+  - BeautifulSoup
+  - csv
+  - re
+  - requests
+  - shutil
+  - cfscrape
 

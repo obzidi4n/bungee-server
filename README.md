@@ -8,3 +8,10 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
 - Updating Spigot via Buildtools in a Tmux session, and replacing across the network.
 - Updating Bungeecord
 - And more ..
+
+Dependencies:
+
+Python 3.x
+
+Python libraries (use pip to install)
+

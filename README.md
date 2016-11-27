@@ -13,11 +13,11 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
 
 - Tmux
 - Python 3.x
+- Zip
+- Rsync
 
 - Python libraries (use pip to install)
   - BeautifulSoup
-  - csv
-  - re
   - requests
   - shutil
   - cfscrape

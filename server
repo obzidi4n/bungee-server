@@ -9,18 +9,20 @@ if [ $1 = 'help' ]; then
 
 		SERVER CONTROL
 		./server help - this menu
-		./server start <servername> - start a server
-		./server stop <servername> - graceful shutdown
-		./server shutdown - kill all servers now (emergency only)
+
+		./server backup - backup configs and world files
 		./server console - quick connect to tmux session
 		./server dumplogs - cause that's a lot of space :)
+		./server eula - update all eulas at once
 		./server list - list servers and configurations
 		./server pluginlist - list plugins
-		./server backup - backup configs and world files
+		./server shutdown - kill all servers now (emergency only)
+		./server start <servername> - start a server
+		./server stop <servername> - graceful shutdown
 
 		UPDATES
 		./server update bungee - get the latest bungee build
-	        ./server update spigot - download latest buildtools, run git and write to server.
+		./server update spigot - download latest buildtools, run git and write to server.
 		./server update spigotjars - copy updated spigot.jar to server folders
 		./server update plugins - get latest plugin builds & write to servers
 		./server update pluginlist - get a fresh list of plugins
@@ -116,16 +118,31 @@ if [ $1 = 'dumplogs' ]; then
 
 fi
 
+if [ $1 = 'eula' ]; then
+
+	while read server megs; do				
+
+		if [ $server != 'bungee' ]; then
+
+			\cp common-files/eula/eula.txt servers/$server/eula.txt
+
+			echo 'Updated EULA: '$server
+			fi
+
+	done < config/serverlist
+
+fi
+
 if [ $1 = 'console' ]; then
 
-	if (tmux has-session -t 'delphicraft' 2> /dev/null); then
+	if (tmux has-session -t 'minecraft' 2> /dev/null); then
 
-		tmux attach -t delphicraft
+		tmux attach -t minecraft
 		exit
 
 	else
-                tmux new-session -d -s delphicraft
-                tmux attach -t delphicraft
+                tmux new-session -d -s minecraft
+                tmux attach -t minecraft
 		exit
 	fi
 fi
@@ -133,7 +150,7 @@ fi
 
 if [ $1 = 'shutdown' ]; then
 
-	if (tmux has-session -t 'delphicraft' 2> /dev/null); then
+	if (tmux has-session -t 'minecraft' 2> /dev/null); then
 
 		echo "A sudden stop might cause data loss! Try ./server stop all instead for a graceful shutdown."
 
@@ -143,7 +160,7 @@ if [ $1 = 'shutdown' ]; then
 
 			if [[ $response =~ ^(yes|y)$ ]]; then
 
-				tmux kill-session -t delphicraft
+				tmux kill-session -t minecraft
 				echo 'Shutting down session.'
 			else
 				echo 'Shutdown aborted.'
@@ -161,9 +178,9 @@ if [ $1 = 'stop' ]; then
 
 	if [ $2 = 'all' ]; then
 
-		if (tmux has-session -t 'delphicraft' 2> /dev/null); then
+		if (tmux has-session -t 'minecraft' 2> /dev/null); then
 
-			tmux list-windows -t delphicraft|cut -d: -f1|xargs -I{} tmux send-keys -t delphicraft:{} '/stop' ENTER
+			tmux list-windows -t minecraft|cut -d: -f1|xargs -I{} tmux send-keys -t minecraft:{} '/stop' ENTER
 			echo 'All servers stopped.'
 		else
 			echo 'No servers found.'
@@ -175,15 +192,15 @@ if [ $1 = 'stop' ]; then
 
 	if [ $2 = 'bungee' ]; then
 
-		tmux send -t delphicraft:bungee 'e'
-		tmux send -t delphicraft:bungee 'nd' ENTER
+		tmux send -t minecraft:bungee 'e'
+		tmux send -t minecraft:bungee 'nd' ENTER
 		echo 'Bungee stopped.'
 
 	fi
 
 	if [ $2 != 'bungee' ]; then
 
-		tmux send -t delphicraft:$2 'stop' ENTER
+		tmux send -t minecraft:$2 'stop' ENTER
 		echo $2' stopped.'
 	fi
 fi
@@ -194,7 +211,7 @@ if [ $1 = 'start' ]; then
 
 		# check if session exists
 
-        if (tmux has-session -t 'delphicraft' 2> /dev/null); then
+        if (tmux has-session -t 'minecraft' 2> /dev/null); then
 
 			echo 'Sorry, already running.'
 			exit
@@ -202,21 +219,29 @@ if [ $1 = 'start' ]; then
 		else
 
 			# ok start new session
-			tmux new-session -d -s delphicraft
+			tmux new-session -d -s minecraft
 
 			# start windows
 
-			i=1
-			tmux new-window -t delphicraft:$i -n 'bungee' -c 'servers/bungee' 'java -Xms512M -Xmx512M -jar BungeeCord.jar'
+			i=0
 
-			while read server megs; do
+			while read server megs; do				
 
-				(( i++ ))
-	        	tmux new-window -t delphicraft:$i -n "$server" -c "servers/$server" 'java -Xmx'$megs'M -Xms'$megs'M -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=50 -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AggressiveOpts -jar spigot.jar'
+				if [ $server = 'bungee' ]; then
+
+					tmux new-window -t minecraft -n "$server" -c "servers/$server" 'java -Xmx'$megs'M -Xms'$megs'M -jar BungeeCord.jar'
+
+					else
+
+			        	tmux new-window -t minecraft -n "$server" -c "servers/$server" 'java -Xmx'$megs'M -Xms'$megs'M -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=50 -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AggressiveOpts -jar spigot.jar'
+
+	       		fi
+
+	       		(( i++ ))
 
 			done < config/serverlist
 
-			tmux select-window -t delphicraft:1
+			tmux select-window -t minecraft:1
 			echo 'All servers started.'
 			exit
                 fi
@@ -226,38 +251,39 @@ if [ $1 = 'start' ]; then
 	if [ $2 = 'bungee' ]; then
 
 		# check if session exists
-        if ! (tmux has-session -t 'delphicraft' 2> /dev/null); then
+        if ! (tmux has-session -t 'minecraft' 2> /dev/null); then
 
-			tmux new-session -d -s delphicraft
+			tmux new-session -d -s minecraft
 
 		fi
 
-		# start window
-		tmux new-window -t delphicraft -n 'bungee' -c 'servers/bungee' 'java -Xms512M -Xmx512M -jar BungeeCord.jar'
-		echo 'bungee started.'
+		# match serverlist to grab memory settings
+		megs=$(awk '/'$2'/ {print $2}' config/serverlist);
+
+		# start tmux window
+		tmux new-window -t minecraft -n $2 -c 'servers/'$2 'java -Xmx'$megs'M -Xms'$megs'M -jar BungeeCord.jar'
+		echo $2' started with '$megs' megs.'
 		exit
 	fi
 
 	if [ $2 != 'bungee' ]; then
 
-            # check if session exists
-            if ! (tmux has-session -t 'delphicraft' 2> /dev/null); then
+        # check if session exists
+        if ! (tmux has-session -t 'minecraft' 2> /dev/null); then
 
-                    tmux new-session -d -s delphicraft
+        	tmux new-session -d -s minecraft
 
-            fi
+        fi
 
-			# ok sesson doesn't exist yet
+		# match serverlist to grab memory settings
+		megs=$(awk '/'$2'/ {print $2}' config/serverlist);
 
-			# match serverlist to grab memory settings
-			megs=$(awk '/'$2'/ {print $2}' config/serverlist);
+		# start tmux window
+		tmux new-window -t minecraft -n $2 -c 'servers/'$2 'java -Xmx'$megs'M -Xms'$megs'M -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=50 -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AggressiveOpts -jar spigot.jar'
+		echo $2' started with '$megs' megs.'
 
-			# boot server in new tmux window
-			tmux new-window -t delphicraft:$i -n $2 -c 'servers/'$2 'java -Xmx'$megs'M -Xms'$megs'M -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=50 -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AggressiveOpts -jar spigot.jar'
-			echo $2' started'
-
-			exit
-		fi
+		exit
+	fi
 fi
 
 if [ $1 = 'update' ]; then

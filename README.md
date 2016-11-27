@@ -22,3 +22,7 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
   - shutil
   - cfscrape
 
+
+apt-get update
+apt-get install python-pip zip default-jre zip 
+pip install BS4 requests cfscrape

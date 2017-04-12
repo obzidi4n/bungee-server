@@ -8,27 +8,39 @@ if [ $1 = 'help' ]; then
 		Obzidi4n's Nifty Server Scripts
 
 		SERVER CONTROL
-		./server help - this menu
+		./mc help - this menu
 
-		./server backup - backup configs and world files
-		./server console - quick connect to tmux session
-		./server dumplogs - cause that's a lot of space :)
-		./server eula - update all eulas at once
-		./server list - list servers and configurations
-		./server pluginlist - list plugins
-		./server shutdown - kill all servers now (emergency only)
-		./server start <servername> - start a server
-		./server stop <servername> - graceful shutdown
+		./mc backup - backup configs and world files
+		./mc console - quick connect to tmux session
+		./mc dumplogs - cause that's a lot of space :)
+		./mc eula - update all eulas at once
+		./mc list - list servers and configurations
+		./mc mirror <servername> - copy plugins and configs for testing
+		./mc pluginlist - list plugins
+		./mc shutdown - kill all servers now (emergency only)
+		./mc start <servername> - start a server
+		./mc stop <servername> - graceful shutdown
 
 		UPDATES
-		./server update bungee - get the latest bungee build
-		./server update spigot - download latest buildtools, run git and write to server.
-		./server update spigotjars - copy updated spigot.jar to server folders
-		./server update plugins - get latest plugin builds & write to servers
-		./server update pluginlist - get a fresh list of plugins
+		./mc update bungee - get the latest bungee build
+		./mc update spigot - download latest buildtools, run git and write to server.
+		./mc update spigotjars - copy updated spigot.jar to server folders
+		./mc update plugins - get latest plugin builds & write to servers
+		./mc update pluginlist - get a fresh list of plugins
 
 		*******
 		"
+fi
+
+if [ $1 = 'mirror' ]; then
+
+# remove old plugins
+rm -rf servers/mirror/plugins/*
+echo 'old plugins removed'
+
+# copy the targeted server's plugin directory
+rsync -avr servers/$2/plugins/ servers/mirror/plugins/ --exclude dynmap/web
+echo $2' plugins copied.  Done!'
 fi
 
 
@@ -47,7 +59,7 @@ if [ $1 = 'backup' ]; then
 	while read server megs; do
 
 			echo 'Backing up: '$server
-			rsync -arzu --delete --exclude-from "config/backup-excludes" "servers/$server" "$backup_loc" 
+			rsync -arzu --delete --exclude-from "config/backup-excludes" "servers/$server" "$backup_loc"
 
 	done < config/serverlist
 
@@ -61,12 +73,12 @@ if [ $1 = 'backup' ]; then
 
 	zip -rq "$backup_loc"-$(date +%m%d%y).zip "$backup_loc"
 
-	echo "Created $backup_loc"-"$(date +%m%d%y)".zip 
+	echo "Created $backup_loc"-"$(date +%m%d%y)".zip
 	echo "Send to Cloud? (y/n)"
 
 	read sendCloud
 
-        if [ $sendCloud == "y" ] 
+        if [ $sendCloud == "y" ]
             then
 
 			# send to cloud
@@ -120,7 +132,7 @@ fi
 
 if [ $1 = 'eula' ]; then
 
-	while read server megs; do				
+	while read server megs; do
 
 		if [ $server != 'bungee' ]; then
 
@@ -225,7 +237,7 @@ if [ $1 = 'start' ]; then
 
 			i=0
 
-			while read server megs; do				
+			while read server megs; do
 
 				if [ $server = 'bungee' ]; then
 

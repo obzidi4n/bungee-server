@@ -16,6 +16,17 @@ This is built for a linux server environment - check the dependencies below and 
 
 Then, fire up **./mc help** for available commands.
 
+** Quickstart **
+
+1. Add your server's name and memory allocation to /config/serverlist
+2. Build Spigot **./mc update spigot** and **./mc update spigotjars**
+3. Get Bungee **./mc update bungee**
+4. Generate Configs **./mc start bungee** and **./mc start <servername>**
+5. Stop Servers **./mc stop bungee** and **./mc stop <servername>**
+6. Adjust your configurations, ports, firewall etc.
+7. Start Servers **./mc start bungee** and **./mc start <servername>**
+8. Go to Console **./mc console**
+
 # Questions?
 
 Documentation and error-handling is being improved, but right now everything here 'just works'.   If you find any major bugs or have suggestions, please create an Issue above (or fork it).

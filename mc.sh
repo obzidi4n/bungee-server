@@ -15,7 +15,7 @@ if [ $1 = 'help' ]; then
 		./mc dumplogs - cause that's a lot of space :)
 		./mc eula - update all eulas at once
 		./mc list - list servers and configurations
-		./mc mirror <servername> - copy plugins and configs for testing
+		./mc mirror <servername> - copy plugins and configs to the test server.
 		./mc pluginlist - list plugins
 		./mc shutdown - kill all servers now (emergency only)
 		./mc start <servername> - start a server
@@ -39,7 +39,7 @@ rm -rf servers/mirror/plugins/*
 echo 'old plugins removed'
 
 # copy the targeted server's plugin directory
-rsync -avr servers/$2/plugins/ servers/mirror/plugins/ --exclude dynmap/web
+rsync -avr servers/$2/plugins/ servers/test/plugins/ --exclude dynmap/web
 echo $2' plugins copied.  Done!'
 fi
 
@@ -302,124 +302,174 @@ if [ $1 = 'update' ]; then
 
 	if [ $2 = 'plugins' ]; then
 
-                echo
+        echo
 		echo 'Cleaning up plugins directory'
 		rm common-files/plugins/*
 
 		## download latest plugin builds - call python script ##
 		python scripts/plugins.py
 
-			# find zips and unzip them
-			for file in common-files/plugins/*.zip
-				do
+        # find zips and unzip them
+        for file in common-files/plugins/*.zip
+            do
 
-					echo
-					echo 'Unzipping ' $file
-					unzip -jo $file -d ${file%.*}
+                echo
+                echo 'Unzipping ' $file
+                unzip -jo $file -d ${file%.*}
 
-					# copy jars up from unzipped folders
-					for jarfile in ${file%.*}/*.jar
-						do
+                # copy jars up from unzipped folders
+                for jarfile in ${file%.*}/*.jar
+                    do
 
-							jarfile_base=${jarfile##*/}
-							echo
-							echo 'Moving ' $jarfile_base
-							cp $jarfile common-files/plugins/$jarfile_base
+                        jarfile_base=${jarfile##*/}
+                        echo
+                        echo 'Moving ' $jarfile_base
+                        cp $jarfile common-files/plugins/$jarfile_base
 
-						done
+                    done
 
-				done
+            done
+            
 
-			# cleanup: remove sub-directories
-			echo
-			echo 'Removing subdirectories'
-			rm -rf common-files/plugins/*/
+        # cleanup: remove sub-directories
+        echo
+        echo 'Removing subdirectories'
 
-			# cleanup: remove zips
-			echo
-			echo 'Removing zips'
-			for file in common-files/plugins/*.zip
-				do
+        rm -rf common-files/plugins/*/
+        
 
-						rm $file
+        # cleanup: remove zips
+        echo
+        echo 'Removing zips'
 
-				done
+        for file in common-files/plugins/*.zip
+            do
 
-			echo
-			echo 'Plugin jars downloaded'
+                    rm $file
 
+            done
 
-		## remove version numbers, etc. ##
+        echo
+        echo 'Plugin jars downloaded'
+        
 
-			# delete unwanted files
-			rm common-files/plugins/*{javadoc,sources}*
+        # cleanup: delete unwanted files
+        rm common-files/plugins/*{javadoc,sources}*
+        
+        echo
+        echo 'Unwanted files removed'
+        
+        # cleanup: remove spaces in filenames
+        for file in common-files/plugins/*
+            do
+                newfile=${file// /}
+                
+                if [ "$newfile" != "$file" ]; then
+                
+                    mv "$file" "$newfile"
+                
+                fi
 
-			# remove 'SNAPSHOT'
-			for plugin in common-files/plugins/*SNAPSHOT*
-			do
-				mv $plugin ${plugin/SNAPSHOT/}
-			done
+            done
+        
+        echo
+        echo 'Filename spaces removed'
 
-			# clean up version numbers
-			for plugin in common-files/plugins/*.jar
-			do
+        # cleanup: remove version numbers
+        for plugin in common-files/plugins/*.jar
+            do
 
-				plugin_path=${plugin%/*}'/'
-				plugin_base=${plugin##*/}
+                # separate path from base
+                plugin_path=${plugin%/*}'/'
+                plugin_base=${plugin##*/}
 
-				# strip version numbers
-				new_plugin_base=${plugin_base%%[0-9]*}
+                # remove all special characters
+                plugin_base=${plugin_base//_/}
 
-			    # trim any non .jar endings
-			    if ! [[ $new_plugin_base =~ (jar)$ ]]; then
+                # trim off 'version' info from base
+                plugin_base=${plugin_base%%[[0123456789]*}
 
-			        new_plugin_base=${new_plugin_base%-*}
-			        jar='.jar'
-			        new_plugin_base=$new_plugin_base$jar
+                # replace any non-.jar endings
+                if ! [[ $plugin_base =~ (jar)$ ]]; then
 
-			    fi
+                    jar='.jar'
+                    plugin_base=$plugin_base$jar
 
-			# rename files
+                fi
 
-			    if ! [[ $plugin == $plugin_path$new_plugin_base ]]; then
+                # remove any trailing dashes
+                plugin_base=${plugin_base/-.jar/.jar}
 
-			        mv $plugin $plugin_path$new_plugin_base
+                # rename files
+                if ! [[ $plugin == $plugin_path$plugin_base ]]; then
 
-			    fi
+                    mv $plugin $plugin_path$plugin_base
 
-			done
+                fi
 
-			echo
-			echo 'Filenames cleaned up'
+            done
+
+        echo
+        echo 'Version information cleaned up.'
 
 
 		## check plugins against common-files directory, update if needed.
 		echo
-		echo 'Add any premium or custom plugins manually to the /common-files/plugins directory, and press any key to continue..'
+		echo 'Please add any manually-updated plugins to the /common-files/plugins directory now, then press any key to continue..'
 
 		read pluginContinue
+        
+        echo 'Type T to copy plugins to Test only, or any key to copy to all servers..'
+        
+        read pluginContinue
+        
+        if [ "$pluginContinue" = "T" ] || [ "$pluginContinue" = "t" ]; then
+        
+            server='test'
+            
+            for plugin in servers/$server/plugins/*.jar
+                    do
 
-		while read server megs
-		do
+                        plugin_base="${plugin##*/}"
+                        echo
+                        echo "server: "$server 
+                        echo "plugin: "$plugin_base
+                        if diff common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base > /dev/null; then
+                            echo -e "\e[32mUp to Date\e[0m"
+                            else
+                                cp -f common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base
+                                echo -e "\e[32mUpdated\e[0m"
+                            fi
 
-			for plugin in servers/$server/plugins/*.jar
-				do
+                    done
 
-					plugin_base="${plugin##*/}"
-					echo "server: "$server "plugin: "$plugin_base
-					if diff common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base > /dev/null; then
-						echo "Up to Date"
-						else
-							cp -f common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base
-							echo "Updated"
-						fi
+        else
 
-				done
+            while read server megs
+            do
 
-		done < config/serverlist
+                for plugin in servers/$server/plugins/*.jar
+                    do
 
+                        plugin_base="${plugin##*/}"
+                        echo
+                        echo "server: "$server 
+                        echo "plugin: "$plugin_base
+                        if diff common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base > /dev/null; then
+                            echo -e "\e[32mUp to Date\e[0m"
+                            else
+                                cp -f common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base
+                                echo -e "\e[32mUpdated\e[0m"
+                            fi
+
+                    done
+
+            done < config/serverlist
+
+        fi
+        
 		echo
-		echo 'Plugins copied to servers.'
+		echo 'Plugins updated.'
 		echo
 		echo 'Done!'
 	fi

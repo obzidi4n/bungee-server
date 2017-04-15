@@ -1,5 +1,5 @@
 # Bungeecord / Spigot Server Wrapper
-A simple server wrapper setup for linux using Tmux, plus some helpful scripts to save tons of time on routine admin tasks:
+A simple server wrapper setup for linux using Tmux, plus some helpful scripts that will save you tons of time on routine admin tasks:
 
 - Automatically fetch the latest plugin builds from Spigot, Jenkins, Bukkit, etc. and replace them across the network.  
 - Update Spigot and Bungeecord with simple commands.

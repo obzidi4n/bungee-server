@@ -10,9 +10,15 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
 - Mirroring a server's configs into a Test server, great for testing plugin updates before going live.
 - And much more ..
 
+# Getting Started
+
+This is built for a linux server environment - check the dependencies below and make sure you have everything.
+
+Then, fire up **./mc help** for available commands.
+
 # Questions?
 
-Documentation and error-handling needs improvement, but everything here 'just works'.   If you have any major bugs or suggestions, please create an Issue above.
+Documentation and error-handling is being improved, but right now everything here 'just works'.   If you find any major bugs or have suggestions, please create an Issue above (or fork it).
 
 # Dependencies:
 

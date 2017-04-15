@@ -3,9 +3,9 @@ This is a simple set of scripts for managing a Bungeecord network of Minecraft s
 
 A set of basic tools to save the busy Minecraft admin a ton of time on routine tasks:
 
-- Fire up and shut down servers in tabs of a Tmux session.
 - Automatically fetch the latest plugin builds from Spigot, Jenkins, Bukkit, etc. and replace them across the network.  
 - Update Spigot and Bungeecord with simple commands.
+- Fire up and shut down servers in tabs of a Tmux session.
 - Run backups of your servers and send them to a cloud provider of your choice.
 - Mirror any server's plugins and configs into a test environment.
 - And much more ..

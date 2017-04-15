@@ -1,7 +1,5 @@
-# bungee-server-script
-This is a simple set of scripts for managing a Bungeecord network of Minecraft servers.
-
-A set of basic tools to save the busy Minecraft admin a ton of time on routine tasks:
+# Bungeecord / Spigot Server Wrapper
+A simple server wrapper setup for linux using Tmux, plus some helpful scripts to save tons of time on routine admin tasks:
 
 - Automatically fetch the latest plugin builds from Spigot, Jenkins, Bukkit, etc. and replace them across the network.  
 - Update Spigot and Bungeecord with simple commands.

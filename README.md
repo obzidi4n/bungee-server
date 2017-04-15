@@ -4,10 +4,15 @@ This is a simple set of scripts for managing a Bungeecord network of Minecraft s
 A set of basic tools to save the busy Minecraft admin a ton of time on routine tasks, including:
 
 - Firing up and shutting down servers in tabs of a Tmux session.
-- Automatically fetching the latest builds of plugins and replacing across the network.
+- Automatically fetching the latest builds of plugins and replacing across the network.  
 - Updating Spigot via Buildtools in a Tmux session, and replacing across the network.
 - Updating Bungeecord
-- And more ..
+- Mirroring a server's configs into a Test server, great for testing plugin updates before going live.
+- And much more ..
+
+# Questions?
+
+Documentation and error-handling needs improvement, but everything here 'just works'.   If you have any major bugs or suggestions, please create an Issue above.
 
 # Dependencies:
 
@@ -21,7 +26,6 @@ A set of basic tools to save the busy Minecraft admin a ton of time on routine t
   - requests
   - shutil
   - cfscrape
-
 
 apt-get update
 apt-get install python-pip zip default-jre zip 

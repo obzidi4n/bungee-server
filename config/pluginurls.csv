@@ -1,2 +1,6 @@
 plugin,type,url
-MysqlEcoBridge,spigot,https://www.spigotmc.org/resources/mysql-economy-bridge.6174,
+advanced-bungee-announcer,spigot,https://www.spigotmc.org/resources/advancedbungeeannouncer.593
+AsyncWorldEdit,manual,https://www.spigotmc.org/resources/asyncworldedit-premium.9661
+CraftBook,jenkins,http://ci.md-5.net/job/CraftBook
+Worldedit,enginehub,http://builds.enginehub.org/job/worldedit/last-successful?branch=master
+Worldguard,enginehub,http://builds.enginehub.org/job/worldguard/last-successful?branch=master

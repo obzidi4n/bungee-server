@@ -19,7 +19,7 @@ Then, fire up **./mc help** for available commands.
 1. Add your server's name and memory allocation to **/config/serverlist**
 2. Build Spigot **./mc update spigot** (.. wait for build, then) **./mc update spigotjars**
 3. Get Bungee **./mc update bungee**
-4. Fill out the EULA **./mc update eula**
+4. Drop in valid EULAs **./mc update eula**
 5. Generate Configs **./mc start bungee** and **./mc start ServerName**
 6. Stop Servers **./mc stop bungee** and **./mc stop ServerName**
 7. Adjust your configurations, ports, firewall etc.

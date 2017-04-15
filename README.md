@@ -30,6 +30,8 @@ Then, fire up **./mc help** for available commands.
 
 Documentation and error-handling is being improved, but right now everything here 'just works'.   If you find any major bugs or have suggestions, please create an Issue above (or fork it).
 
+Need a simple Tmux config?  May we suggest https://github.com/obzidi4n/tmux.conf
+
 # Dependencies:
 
 - Tmux

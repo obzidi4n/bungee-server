@@ -1,13 +1,13 @@
 # bungee-server-script
 This is a simple set of scripts for managing a Bungeecord network of Minecraft servers.
 
-A set of basic tools to save the busy Minecraft admin a ton of time on routine tasks, including:
+A set of basic tools to save the busy Minecraft admin a ton of time on routine tasks:
 
-- Firing up and shutting down servers in tabs of a Tmux session.
-- Automatically fetching the latest builds of plugins and replacing across the network.  
-- Updating Spigot via Buildtools in a Tmux session, and replacing across the network.
-- Updating Bungeecord
-- Mirroring a server's configs into a Test server, great for testing plugin updates before going live.
+- Fire up and shut down servers in tabs of a Tmux session.
+- Automatically fetch the latest plugin builds from Spigot, Jenkins, Bukkit, etc. and replace them across the network.  
+- Update Spigot and Bungeecord with simple commands.
+- Run backups of your servers and send them to a cloud provider of your choice.
+- Mirror any server's plugins and configs into a test environment.
 - And much more ..
 
 # Getting Started

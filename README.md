@@ -10,7 +10,7 @@ A simple server wrapper setup for linux using Tmux, plus some helpful scripts th
 
 # Getting Started
 
-This is built for a linux server environment - check the dependencies below and make sure you have everything.
+This is built for a linux environment - check the dependencies below and make sure you have everything.
 
 Then, fire up **./mc help** for available commands.
 

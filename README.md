@@ -18,7 +18,7 @@ Then, fire up **./mc help** for available commands.
 
 ** Quickstart **
 
-1. Add your server's name and memory allocation to /config/serverlist
+1. Add your server's name and memory allocation to **/config/serverlist**
 2. Build Spigot **./mc update spigot** (.. wait for build, then) **./mc update spigotjars**
 3. Get Bungee **./mc update bungee**
 4. Generate Configs **./mc start bungee** and **./mc start ServerName**

@@ -6,16 +6,18 @@ if [ $1 = 'help' ]; then
 		echo "
 		*******
 		Obzidi4n's Nifty Server Scripts
+        
+        Visit us at play.minecartmob.com and play.delphicraft.net
 
-		SERVER CONTROL
+		SERVER CONTROLS
 		./mc help - this menu
 
 		./mc backup - backup configs and world files
 		./mc console - quick connect to tmux session
-		./mc dumplogs - cause that's a lot of space :)
+		./mc dumplogs - clean up all log files
 		./mc eula - update all eulas at once
 		./mc list - list servers and configurations
-		./mc mirror <servername> - copy plugins and configs to the test server.
+		./mc mirror <servername> - copy plugins and configs from one server to the test server.
 		./mc pluginlist - list plugins
 		./mc shutdown - kill all servers now (emergency only)
 		./mc start <servername> - start a server

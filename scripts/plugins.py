@@ -10,8 +10,7 @@ pluginFile = open('config/pluginurls.csv')
 pluginReader = csv.reader(pluginFile)
 pluginData = list(pluginReader)
 pluginNum = pluginReader.line_num
-
-print(str(pluginNum-1), 'plugins')
+manualPluginList = 'Manual Plugins:\n'
 
 # command: update all
 for i in range(1, pluginNum):
@@ -19,7 +18,7 @@ for i in range(1, pluginNum):
     pluginName = pluginData[i][0]
     pluginUrl = pluginData[i][2]
 
-    print (str(pluginNum-1), pluginName)
+    print "Processing",i,"of",pluginNum,":",pluginName
 
     # check if spigot
     if pluginData[i][1] == 'spigot':
@@ -38,7 +37,7 @@ for i in range(1, pluginNum):
         target = 'http://www.spigotmc.org/' + soup2['href']
 
         # get response object
-        response = scraper.get(target, stream=True, verify=False)
+        response = scraper.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
 
         # get filename from header, or use pluginName
         try:
@@ -73,7 +72,7 @@ for i in range(1, pluginNum):
             fileName = tag.filename.string
             target = pluginUrl + '/lastStableBuild/artifact/' + tag.relativepath.string
 
-            response = requests.get(target, stream=True, verify=False)
+            response = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
 
             # report
             print('Plugin:', pluginName)
@@ -100,7 +99,7 @@ for i in range(1, pluginNum):
         soup3 = soup2.find('a')
         target = soup3['href']
 
-        response = requests.get(target, stream=True, verify=False)
+        response = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
         fileName = pluginName + '.jar'
 
         # report
@@ -120,7 +119,7 @@ for i in range(1, pluginNum):
 
         target = pluginUrl
         fileName = pluginName + '.jar'
-        response = requests.get(target, stream=True, verify=False)
+        response = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
 
         # report
         print('Plugin:', pluginName)
@@ -134,6 +133,19 @@ for i in range(1, pluginNum):
 
         print('Saved \n\n')
 
+    # check if manual
+    elif pluginData[i][1] == 'manual':
+
+        manualPluginList += pluginName
+        manualPluginList += '\n'
+
+        # report
+        print('Plugin:', pluginName)
+        print('Skipped for manual installation \n')
+
     # else error
     else:
         print('error updating', pluginName, ', please check the CSV file.')
+
+# print list of manual plugins
+print(manualPluginList)

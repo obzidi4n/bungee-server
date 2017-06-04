@@ -6,8 +6,7 @@ if [ $1 = 'help' ]; then
 		echo "
 		*******
 		Obzidi4n's Nifty Server Scripts
-        
-        Visit us at play.minecartmob.com and play.delphicraft.net
+                Visit us at play.minecartmob.com and play.delphicraft.net
 
 		SERVER CONTROLS
 		./mc help - this menu
@@ -331,14 +330,12 @@ if [ $1 = 'update' ]; then
                     done
 
             done
-            
 
         # cleanup: remove sub-directories
         echo
         echo 'Removing subdirectories'
 
         rm -rf common-files/plugins/*/
-        
 
         # cleanup: remove zips
         echo
@@ -353,27 +350,26 @@ if [ $1 = 'update' ]; then
 
         echo
         echo 'Plugin jars downloaded'
-        
 
         # cleanup: delete unwanted files
         rm common-files/plugins/*{javadoc,sources}*
-        
+
         echo
         echo 'Unwanted files removed'
-        
+
         # cleanup: remove spaces in filenames
         for file in common-files/plugins/*
             do
                 newfile=${file// /}
-                
+
                 if [ "$newfile" != "$file" ]; then
-                
+
                     mv "$file" "$newfile"
-                
+
                 fi
 
             done
-        
+
         echo
         echo 'Filename spaces removed'
 
@@ -420,21 +416,21 @@ if [ $1 = 'update' ]; then
 		echo 'Please add any manually-updated plugins to the /common-files/plugins directory now, then press any key to continue..'
 
 		read pluginContinue
-        
+
         echo 'Type T to copy plugins to Test only, or any key to copy to all servers..'
-        
+
         read pluginContinue
-        
+
         if [ "$pluginContinue" = "T" ] || [ "$pluginContinue" = "t" ]; then
-        
+
             server='test'
-            
+
             for plugin in servers/$server/plugins/*.jar
                     do
 
                         plugin_base="${plugin##*/}"
                         echo
-                        echo "server: "$server 
+                        echo "server: "$server
                         echo "plugin: "$plugin_base
                         if diff common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base > /dev/null; then
                             echo -e "\e[32mUp to Date\e[0m"
@@ -455,7 +451,7 @@ if [ $1 = 'update' ]; then
 
                         plugin_base="${plugin##*/}"
                         echo
-                        echo "server: "$server 
+                        echo "server: "$server
                         echo "plugin: "$plugin_base
                         if diff common-files/plugins/$plugin_base servers/$server/plugins/$plugin_base > /dev/null; then
                             echo -e "\e[32mUp to Date\e[0m"
@@ -469,7 +465,7 @@ if [ $1 = 'update' ]; then
             done < config/serverlist
 
         fi
-        
+
 		echo
 		echo 'Plugins updated.'
 		echo
@@ -497,7 +493,7 @@ if [ $1 = 'update' ]; then
 		git config --global --unset core.autocrlf
 
 		# run git .. this takes awhile, run inside tmux
-		tmux new -d -s spigot 'java -jar -Xmx2G -Xms2G BuildTools.jar'
+		tmux new -d -s spigot 'java -jar -Xmx2G -Xms2G BuildTools.jar --dev'
 
 		echo  "Running buildtools in a tmux session called 'spigot'. Join session? (y/n)"
         read joinsession

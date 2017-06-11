@@ -484,25 +484,38 @@ if [ $1 = 'update' ]; then
 
 	if [ $2 = 'spigot' ]; then
 
-		# todo: check if directory exists, if not, create and then CD
-		# empty old builds
-        chmod -R 777 common-files/buildtools/*
-        rm -rf common-files/buildtools/*
-		cd common-files/buildtools
-		wget "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
-		git config --global --unset core.autocrlf
+        echo "Please enter any BuildTools arguments (ex. --rev 1.12) or hit Enter for default version:"
+        
+        read spigotargs
+        
+        echo "Ready to build Spigot $spigotargs.  Hit y to confirm:"
+        
+        read buildspigot
+        
+        if [ $buildspigot = 'y' ]; then
 
-		# run git .. this takes awhile, run inside tmux
-		tmux new -d -s spigot 'java -jar -Xmx2G -Xms2G BuildTools.jar --dev'
+            # todo: check if directory exists, if not, create and then CD
+            # empty old builds
+            chmod -R 777 common-files/buildtools/*
+            rm -rf common-files/buildtools/*
+            cd common-files/buildtools
+            wget "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" -O BuildTools.jar
+            git config --global --unset core.autocrlf
 
-		echo  "Running buildtools in a tmux session called 'spigot'. Join session? (y/n)"
-        read joinsession
+            # run git .. this takes awhile, run inside tmux
+            tmux new -d -s spigot "java -jar -Xmx2G -Xms2G BuildTools.jar $spigotargs"
 
-                if [ $joinsession = "y" ]; then
-                    tmux attach -t spigot
-                else
-                     exit
-                fi
+            echo  "Running buildtools in a tmux session called 'spigot'. Join session? (y/n)"
+            read joinsession
+
+                    if [ $joinsession = "y" ]; then
+                        tmux attach -t spigot
+                    else
+                         exit
+                    fi
+        else
+            exit
+        fi
 
 	fi
 

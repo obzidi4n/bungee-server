@@ -39,12 +39,12 @@ Need a simple Tmux config?  May we suggest [Obzidi4n's Stupid Simple Tmux.conf](
 - Zip
 - Rsync
 
-- Python libraries (use pip to install)
+- Python libraries 
   - BeautifulSoup
-  - requests
-  - shutil
   - cfscrape
 
-apt-get update
-apt-get install python-pip zip default-jre zip 
-pip install BS4 requests cfscrape
+`apt-get update`
+
+`apt-get install python3 python3-pip rsync tmux zip`
+
+`pip install beautifulsoup4 cfscrape`

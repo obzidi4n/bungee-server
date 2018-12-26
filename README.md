@@ -38,6 +38,7 @@ Need a simple Tmux config?  May we suggest [Obzidi4n's Stupid Simple Tmux.conf](
 - Python 3.x
 - Zip
 - Rsync
+- Nodejs (required by cfscrape)
 
 - Python libraries 
   - BeautifulSoup
@@ -45,6 +46,6 @@ Need a simple Tmux config?  May we suggest [Obzidi4n's Stupid Simple Tmux.conf](
 
 `apt-get update`
 
-`apt-get install python3 python3-pip rsync tmux zip`
+`apt-get install nodejs python3 python3-pip rsync tmux zip`
 
 `pip install beautifulsoup4 cfscrape`

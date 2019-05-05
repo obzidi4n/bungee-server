@@ -35,13 +35,8 @@ for i in range(1, pluginNum):
 		# get response object
 		r = scraper.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
 
-		# get filename from header, or use pluginName
-		try:
-			d = r.headers['content-disposition']
-			f = re.search('filename=\"(.+)\"', d)
-			fileName = re.sub('["]', '', f.group(1))
-		except KeyError:
-			fileName = pluginName + '.jar'  # this presumes it's a jar, of course..
+		# get filename from pluginName
+		fileName = pluginName + '.jar'
 
 		# report
 		print('Target:', target)

@@ -38,14 +38,14 @@ Need a simple Tmux config?  May we suggest [Obzidi4n's Stupid Simple Tmux.conf](
 - Python 3.x
 - Zip
 - Rsync
-- Nodejs (required by cfscrape)
+- Nodejs
 
 - Python libraries 
   - BeautifulSoup
-  - cfscrape
+  - cloudscraper
 
 `apt-get update`
 
 `apt-get install nodejs python3 python3-pip rsync tmux zip`
 
-`pip install beautifulsoup4 cfscrape`
+`pip3 install beautifulsoup4 cloudscraper`

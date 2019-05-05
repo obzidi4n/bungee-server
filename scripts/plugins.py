@@ -14,7 +14,7 @@ for i in range(1, pluginNum):
     pluginName = pluginData[i][0]
     pluginUrl = pluginData[i][2]
 
-    print "Processing",i,"of",pluginNum,":",pluginName
+    print("Processing",i,"of",pluginNum,":",pluginName)
 
     # check if spigot
     if pluginData[i][1] == 'spigot':

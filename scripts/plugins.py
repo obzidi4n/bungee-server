@@ -39,7 +39,7 @@ for i in range(1, pluginNum):
 		try:
 			d = r.headers['content-disposition']
 			f = re.search('filename=\"(.+)\"', d)
-			fileName = f.group(1)
+			fileName = re.sub('["]', '', f.group(1))
 		except KeyError:
 			fileName = pluginName + '.jar'  # this presumes it's a jar, of course..
 

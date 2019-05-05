@@ -48,7 +48,7 @@ for i in range(1, pluginNum):
 		print('File: ', fileName, '\n')
 
 		# stream / save file
-		with open('../common-files/plugins/%s' % fileName, 'wb') as fd:
+		with open('/common-files/plugins/%s' % fileName, 'wb') as fd:
 			for chunk in r.iter_content(chunk_size=128):
 				fd.write(chunk)
 		del r

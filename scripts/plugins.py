@@ -40,7 +40,7 @@ for i in range(1, pluginNum):
 
 		# report
 		print('Target:', target)
-		print('File: ', fileName, '\n')
+		print('File: ', fileName)
 
 		# stream / save file
 		with open('common-files/plugins/%s' % fileName, 'wb') as fd:
@@ -69,7 +69,7 @@ for i in range(1, pluginNum):
 			# report
 			print('Plugin:', pluginName)
 			print('Target:', target)
-			print('File: ', fileName, '\n')
+			print('File: ', fileName)
 
 			 # stream / save file
 			with open('common-files/plugins/%s' % fileName, 'wb') as fd:
@@ -98,7 +98,7 @@ for i in range(1, pluginNum):
 		# report
 		print('Plugin:', pluginName)
 		print('Target:', target)
-		print('File: ', fileName, '\n')
+		print('File: ', fileName)
 
 		# stream / save file
 		with open('common-files/plugins/%s' % fileName, 'wb') as fd:
@@ -118,7 +118,7 @@ for i in range(1, pluginNum):
 		# report
 		print('Plugin:', pluginName)
 		print('Target:', target)
-		print('File: ', fileName, '\n')
+		print('File: ', fileName)
 
 		# stream / save file
 		with open('common-files/plugins/%s' % fileName, 'wb') as fd:

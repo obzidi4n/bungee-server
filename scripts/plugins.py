@@ -37,7 +37,7 @@ for i in range(1, pluginNum):
 
 		# get filename from header, or use pluginName
 		try:
-			d = response.headers['content-disposition']
+			d = r.headers['content-disposition']
 			f = re.search('filename=\"(.+)\"', d)
 			fileName = f.group(1)
 		except KeyError:

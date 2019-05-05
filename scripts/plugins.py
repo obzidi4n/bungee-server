@@ -33,7 +33,7 @@ for i in range(1, pluginNum):
 		target = 'http://www.spigotmc.org/' + soup2['href']
 
 		# get response object
-		r = scraper.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
+		r = scraper.get(target, stream=True) #, verify="/etc/ssl/certs/ca-certificates.crt")
 
 		# get filename from pluginName
 		fileName = pluginName + '.jar'
@@ -64,7 +64,7 @@ for i in range(1, pluginNum):
 			fileName = tag.filename.string
 			target = pluginUrl + '/lastStableBuild/artifact/' + tag.relativepath.string
 
-			r = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
+			r = requests.get(target, stream=True) #, verify="/etc/ssl/certs/ca-certificates.crt")
 
 			# report
 			print('Plugin:', pluginName)
@@ -92,7 +92,7 @@ for i in range(1, pluginNum):
 		soup3 = soup2.find('a')
 		target = soup3['href']
 
-		r = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
+		r = requests.get(target, stream=True) #, verify="/etc/ssl/certs/ca-certificates.crt")
 		fileName = pluginName + '.jar'
 
 		# report
@@ -113,7 +113,7 @@ for i in range(1, pluginNum):
 
 		target = pluginUrl
 		fileName = pluginName + '.jar'
-		r = requests.get(target, stream=True, verify="/etc/ssl/certs/ca-certificates.crt")
+		r = requests.get(target, stream=True) #, verify="/etc/ssl/certs/ca-certificates.crt")
 
 		# report
 		print('Plugin:', pluginName)

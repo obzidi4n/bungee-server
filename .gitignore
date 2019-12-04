@@ -1,0 +1,10 @@
+# Ignore all in root
+/*
+# Include files and subdirectories
+!.gitignore
+!mc
+!LICENSE.md
+!README.md
+!/common-files/
+!/config/
+!/scripts/
